@@ -1,0 +1,13 @@
+format: jb-book
+root: README
+parts:
+- caption: Lectures
+  chapters:
+  - file: lecture-notes/01-intro-to-r-via-tidyverse
+  - file: lecture-notes/02-data-types-and-operators
+  - file: lecture-notes/03-dates-strings-and-factors
+  - file: lecture-notes/04-two-table-joins-and-base-control-flow
+  - file: lecture-notes/05-tidy-control-flow
+  - file: lecture-notes/06-lecture-functions-and-testing
+  - file: lecture-notes/07-mapping-and-nested-data-frames
+  - file: lecture-notes/08-lecture-tidy-evaluation
