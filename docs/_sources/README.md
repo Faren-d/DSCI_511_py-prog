@@ -2,9 +2,9 @@
 
 Program design and data manipulation using industry-standard software tools designed for statistical work. Organizing, filtering, sorting, grouping, reformatting, converting, and cleaning data to prepare it for further analysis. This course is not eligible for Credit/D/Fail grading.
 
-**Course Webpage** <https://pages.github.ubc.ca/MDS-2023-24/DSCI_523_r-prog_students/README.html>
+**Course Webpage** <https://pages.github.ubc.ca/MDS-2024-25/DSCI_523_r-prog_students/README.html>
 
-**Course GitHub repo** <https://github.ubc.ca/MDS-2023-24/DSCI_523_r-prog_students>
+**Course GitHub repo** <https://github.ubc.ca/MDS-2024-25/DSCI_523_r-prog_students>
 
 ## License
 
@@ -53,15 +53,23 @@ By the end of the course, students are expected to be able to:
 
 ## Teaching Team
 
+### Section 001
 | Position                 | Name                     | Slack Handle                |
 | :---:                    | :---:                    | :---:                       |     
 | Lecture & Lab Instructor | Tiffany Timbers | @tiff |
-| Teaching Assistant      | Andy Man Yeung Tai | @Andy Tai |
-| Teaching Assistant      | Cindy Zhang | @Cindy Zhang (TA) |
-| Teaching Assistant      | Dollina Dodani | @Dollina |
-| Teaching Assistant      | Jordan Yu | @Jordan Yu |
+| Teaching Assistant      | Samir Damji | @Samir Damji |
+| Teaching Assistant      | Maria Stephenson | @Maria |
+| Teaching Assistant      | Ramin Rezaeianzadeh | @Ramin Rezaeianzadeh (TA) |
+| Teaching Assistant      | Riya Eliza Shaju | @Riya Eliza Shaju |
+
+### Section 002
+| Position                 | Name                     | Slack Handle                |
+| :---:                    | :---:                    | :---:                       |     
+| Lecture & Lab Instructor | Gittu George | @gittu |
+| Teaching Assistant      | Meltem Omur | @Meltem Omur (TA) |
+| Teaching Assistant      | Tony Liang | @Tony Liang |
+| Teaching Assistant      | Atabak Eghbal | @Atabak |
 | Teaching Assistant      | Ngoc Bui | @ngoc |
-| Teaching Assistant      | Zac Warham | @Zac Warham (TA) |
 
 ## Lecture Schedule
 
@@ -69,14 +77,14 @@ We will be employing a lot of active learning in this course, as you learn progr
 
 |   Lecture  | Topic | Required readings | Required videos | Supplementary resources |
 |------------|------|-----|------|-----|
-| 1 | Reading data, single data frame manipulations & tidying data in R | <ul>[Introduction to Data Science](https://ubc-dsci.github.io/introduction-to-datascience/)<li>[chapter 1](https://ubc-dsci.github.io/introduction-to-datascience/)</li><li>[chapter 2, sections 2.0-2.5 inclusive](https://ubc-dsci.github.io/introduction-to-datascience/reading.html)</li><li>[chapter 3, sections 3.0-3.5 inclusive](https://ubc-dsci.github.io/introduction-to-datascience/wrangling.html)</li></ul> | [Lecture 1 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li>[Data Import Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)</li><li>[Data transformation cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)</li><li>[STAT 545 (chapter 5)](https://stat545.com/basic-data-care.html)</li><li>[Relevant chapters of R for Data Science](https://r4ds.had.co.nz/)</li></ul> |
-| 2 | Key datatypes & operators in R | Not applicable | [Lecture 2 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li>[Base R cheat sheet](https://rstudio.github.io/cheatsheets/base-r.pdf)</li><li>[Advanced R (chapters 2-5)](https://adv-r.hadley.nz/)</li></ul> |
-| 3 | Working with dates, strings & factors in R | [STAT 545 (Data Analysis 2 section)](https://stat545.com/factors-boss.html) | [Lecture 3 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li>[Dates and Times Cheatsheet](https://rstudio.github.io/cheatsheets/html/lubridate.html)</li><li>[Work with Strings Cheatsheet](https://rstudio.github.io/cheatsheets/html/strings.html)</li><li>[Factors with forcats Cheatsheet](https://rstudio.github.io/cheatsheets/html/factors.html)</ul> | 
-| 4 | Two table joins & base R control flow | [STAT 545 (Chapter 15) ](https://stat545.com/join-cheatsheet.html) | [Lecture 4 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | [R for Data Science (chapter 13)](https://r4ds.had.co.nz/relational-data.html) |
-| 5 | Tidy control flow in R | [STAT 545 (section 7.8)](https://stat545.com/dplyr-single.html#group_by-is-a-mighty-weapon) | [Lecture 5 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li>[R for Data Science (section 5.6)](https://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise)</li></ul> |
-| 6 | Functions & testing in R | [R for Data Science (chapter 19)](https://r4ds.had.co.nz/functions.html) | [Lecture 6 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li>[ Chapters 6 - 8 of Advanced R](https://adv-r.hadley.nz/functions.html) </li><li>[Testing chapter of R packages](https://r-pkgs.org/tests.html)</li></ul> |
-| 7 | Mapping & nested data frames in R | | [Lecture 7 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li> [RStudio Apply/map functions Cheat Sheet](https://rstudio.github.io/cheatsheets/html/purrr.html)</li><li>[R for Data Science (section 21.5)](https://r4ds.had.co.nz/iteration.html#the-map-functions)</li><li>[R for Data Science (section 25.3 - 25.5)](https://r4ds.had.co.nz/many-models.html#list-columns-1)</li><li>[Advanced R (chapter 9)](https://adv-r.hadley.nz/fp.html)</li></ul>  |
-| 8 | Tidy evaluation in R | [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) | [Lecture 8 videos](https://canvas.ubc.ca/courses/123595/external_tools/42332) | <ul><li>[RStudio Tidy Evaluation Cheat Sheet](https://rstudio.github.io/cheatsheets/tidyeval.pdf)</li><li>[Advanced R (Metaprogramming section)](https://adv-r.hadley.nz/metaprogramming.html) |
+| 1 | Reading data, single data frame manipulations & tidying data in R | <ul>[Introduction to Data Science](https://ubc-dsci.github.io/introduction-to-datascience/)<li>[chapter 1](https://ubc-dsci.github.io/introduction-to-datascience/)</li><li>[chapter 2, sections 2.0-2.5 inclusive](https://ubc-dsci.github.io/introduction-to-datascience/reading.html)</li><li>[chapter 3, sections 3.0-3.5 inclusive](https://ubc-dsci.github.io/introduction-to-datascience/wrangling.html)</li></ul> | [Lecture 1 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li>[Data Import Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)</li><li>[Data transformation cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)</li><li>[STAT 545 (chapter 5)](https://stat545.com/basic-data-care.html)</li><li>[Relevant chapters of R for Data Science](https://r4ds.had.co.nz/)</li></ul> |
+| 2 | Key datatypes & operators in R | Not applicable | [Lecture 2 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li>[Base R cheat sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)</li><li>[Advanced R (chapters 2-5)](https://adv-r.hadley.nz/)</li></ul> |
+| 3 | Working with dates, strings & factors in R | [STAT 545 (Data Analysis 2 section)](https://stat545.com/factors-boss.html) | [Lecture 3 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li>[Dates and Times Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf)</li><li>[Work with Strings Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)</li><li>[Factors with forcats Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/factors.pdf)</ul> | 
+| 4 | Two table joins & base R control flow | [STAT 545 (Chapter 15) ](https://stat545.com/join-cheatsheet.html) | [Lecture 4 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | [R for Data Science (chapter 13)](https://r4ds.had.co.nz/relational-data.html) |
+| 5 | Tidy control flow in R | [STAT 545 (section 7.8)](https://stat545.com/dplyr-single.html#group_by-is-a-mighty-weapon) | [Lecture 5 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li>[R for Data Science (section 5.6)](https://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise)</li></ul> |
+| 6 | Functions & testing in R | [R for Data Science (chapter 19)](https://r4ds.had.co.nz/functions.html) | [Lecture 6 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li>[ Chapters 6 - 8 of Advanced R](https://adv-r.hadley.nz/functions.html) </li><li>[Testing chapter of R packages](https://r-pkgs.org/tests.html)</li></ul> |
+| 7 | Mapping & nested data frames in R | | [Lecture 7 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li> [RStudio Apply/map functions Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf)</li><li>[R for Data Science (section 21.5)](https://r4ds.had.co.nz/iteration.html#the-map-functions)</li><li>[R for Data Science (section 25.3 - 25.5)](https://r4ds.had.co.nz/many-models.html#list-columns-1)</li><li>[Advanced R (chapter 9)](https://adv-r.hadley.nz/fp.html)</li></ul>  |
+| 8 | Tidy evaluation in R | [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) | [Lecture 8 videos](https://canvas.ubc.ca/courses/146098/external_tools/42332) | <ul><li>[RStudio Tidy Evaluation Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/tidyeval.pdf)</li><li>[Advanced R (Metaprogramming section)](https://adv-r.hadley.nz/metaprogramming.html) |
 
 See the [lecture learning objectives](lec_learning_objectives.md) for a detailed breakdown of lecture-by-lecture learning objectives.  
 
@@ -87,21 +95,22 @@ You are responsible for the following deliverables, which will determine your co
 
 | Assessment       | Weight  | Due Date         |
 | :---:            | :---:   |:---:            |
-| Lab 1 | 10%     | 2023-09-09 18:00 PT |
-| Lab 2 | 10%     | 2023-09-16 18:00 PT |
-| Lab 3 | 10%     | 2023-09-23 18:00 PT |
-| Lab 4 | 10%     | 2023-09-30 18:00 PT |
-| Worksheet 1 | 1%     | 2023-09-09 18:00 PT |
-| Worksheet 2 | 1%     | 2023-09-09 18:00 PT |
-| Worksheet 3 | 1%     | 2023-09-16 18:00 PT |
-| Worksheet 4 | 1%     | 2023-09-16 18:00 PT |
-| Worksheet 5 | 1%     | 2023-09-23 18:00 PT |
-| Worksheet 6 | 1%     | 2023-09-23 18:00 PT |
-| Worksheet 7 | 1%     | 2023-09-30 18:00 PT |
-| Worksheet 8 | 1%     | 2023-09-30 18:00 PT |
-| iClicker    | 2%     | In each lecture |
-| Quiz 1           | 25%     | 2023-09-21 16:00 & 17:00 PT |
-| Quiz 2           | 25%     | 2023-10-03 or 2023-10-04 (TBD) |
+| Lab 1 | 10%     | 2024-09-07 18:00 PT |
+| Lab 2 | 10%     | 2024-09-14 18:00 PT |
+| Lab 3 | 10%     | 2024-09-22 11:59 PT |
+| Lab 4 | 10%     | 2024-09-28 18:00 PT |
+| Worksheet 1 | 1%     | 2024-09-07 18:00 PT |
+| Worksheet 2 | 1%     | 2024-09-07 18:00 PT |
+| Worksheet 3 | 1%     | 2024-09-14 18:00 PT |
+| Worksheet 4 | 1%     | 2024-09-14 18:00 PT |
+| Worksheet 5 | 1%     | 2024-09-22 11:59 PT |
+| Worksheet 6 | 1%     | 2024-09-22 11:59 PT |
+| Worksheet 7 | 1%     | 2024-09-28 18:00 PT |
+| Worksheet 8 | 1%     | 2024-09-28 18:00 PT |
+| Pre-lecture quizzes | 1% | Before each lecture |
+| iClicker    | 1%     | During each lecture |
+| Quiz 1           | 25%     | 2024-09-17 - 2024-09-20 |
+| Quiz 2           | 25%     | 2024-10-01 - 2024-10-04 |
 
 ## Class Schedule & office hours
 

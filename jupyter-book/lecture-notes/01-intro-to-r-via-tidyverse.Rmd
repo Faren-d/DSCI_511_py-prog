@@ -6,7 +6,7 @@ jupyter:
       extension: .Rmd
       format_name: rmarkdown
       format_version: '1.2'
-      jupytext_version: 1.15.0
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: R
     language: R
@@ -42,22 +42,7 @@ By the end of this lecture and worksheet 1, students should be able to:
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
-### First, a bit of history about me
-- Ph.D. in Neuroscience (2012)
-- Started using R in ~ 2010 because I needed to do “complex” statistics
-- Other programming languages I have used:
-        - Turing
-        - Java
-        - Matlab
-        - Python (only other language that I still currently use and remember)
-
-Oh, and I like gifs, so you might see some in my lecture notes…
-
-<img src="https://media.giphy.com/media/3PAL5bChWnak0WJ32x/giphy.gif" width=400>
-<!-- #endregion -->
-
-<!-- #region slideshow={"slide_type": "slide"} -->
-### Now, a bit of history about R
+### First, a bit of history about R
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "fragment"} -->
@@ -88,23 +73,6 @@ Oh, and I like gifs, so you might see some in my lecture notes…
 
 <!-- #region slideshow={"slide_type": "fragment"} -->
 R currently has more than 15,000 additional packages (as of September 2018)!
-<!-- #endregion -->
-
-<!-- #region slideshow={"slide_type": "slide"} -->
-```{admonition} Clicker 1: So, who has used R before?
-A) YES, I used R before.
-
-B) NO, I haven't used R before.
-
-C) I haven't even heard of it.
-
-```
-
-```{toggle}
-
-***Answer:  NA ***
-
-```
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
@@ -768,18 +736,6 @@ Statistical question: What variables are associated with the number of TB cases?
 |      China |1999| 212258/1272915272
 |      China |2000 |213766/1280428583
 
-```{admonition} Clicker 5: Above data is tidy, true or false?
-
-A) TRUE
-
-B) FALSE
-
-```
-```{toggle}
-
-***Answer:  B. FALSE ***
-2 different values stored in same cell.
-```
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
@@ -796,21 +752,6 @@ Statistical question: What variables are associated with the number of TB cases?
 | Afghanistan |  19987071 |  20595360 |
 | Brazil | 172006362 | 174504898 |
 | China | 1272915272 | 1280428583 |
-
-
-```{admonition} Clicker 6: Above data is tidy, true or false?
-
-A) TRUE
-
-B) FALSE
-
-```
-```{toggle}
-
-***Answer:  B. FALSE ***
-- Information spread across 2 different tables.
-- We have information on year associated with the column name and it is not easy to capture it programatically during our analysis.
-```
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
@@ -825,20 +766,7 @@ Statistical question: What variables are associated with the number of TB cases?
 | China | 1999 | 212258 |1272915272|
 |  China |2000 | 213766 | 1280428583|
 
-```{admonition} Clicker 7: Above data is tidy, true or false?
 
-A) TRUE
-
-B) FALSE
-
-```
-```{toggle}
-
-***Answer:  B. TRUE ***
-- Each observation is a single row
-- Each variable is a single column 
-- Each value has it's own cell
-```
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
@@ -859,18 +787,7 @@ Statistical question: What variables are associated with the number of TB cases?
 |       China |2000|      cases |    213766
 |       China |2000| population| 1280428583
 
-```{admonition} Clicker 8: Above data is tidy, true or false?
 
-A) TRUE
-
-B) FALSE
-
-```
-```{toggle}
-
-***Answer:  B. FALSE ***
-- Each variable is not its own column. Instead, we have cases and population in the key column and those values in the value column.
-```
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
