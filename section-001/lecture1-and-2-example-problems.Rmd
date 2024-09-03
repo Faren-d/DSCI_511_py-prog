@@ -1,0 +1,59 @@
+---
+title: "Lab 1 example problems"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## What percentage of parks in Vancouver have a public washroom?
+
+### Part 1
+
+Read the 
+[City of Vancouver Parks washrooms data set](https://opendata.vancouver.ca/explore/dataset/parks-washrooms/export/) 
+into R and calculate the number of unique parks in Vancouver that have a washroom.
+
+> Hint: use the `dplr` package `distinct` function 
+to get the distinct number of rows for each parkID
+
+```{r}
+
+```
+
+### Part 2
+
+Use the [City of Vancouver Parks data set](https://opendata.vancouver.ca/explore/dataset/parks/export/) to calculate the percentage of parks in Vancouver that have a washroom.
+
+```{r}
+
+```
+
+## Tidying patient data
+
+Consider the case where you have a patient data set 
+and you are trying to predict whether a patient has a iron deficiency 
+using the measurements from assays on their ferritin and hemoglobin levels.
+Is the data below tidy? If not, tidy it so that it is.
+
+```{r}
+library(dplyr)
+patients <- tibble(assay= c("ferritin", "hemoglobin", "iron deficiency"), 
+       E2348 = c(14, 122, 0),
+       E2349 = c(8, 103, 1),
+       E2350 = c(31, 144, 0),
+       E2351 = c(44, 98, 0),
+       E2352 = c(27, 125, 0),
+       E2353 = c(12, 131, 0))
+
+patients
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
