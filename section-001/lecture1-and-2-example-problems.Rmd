@@ -1,6 +1,9 @@
 ---
 title: "Lab 1 example problems"
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -11,20 +14,31 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Part 1
 
-Read the 
-[City of Vancouver Parks washrooms data set](https://opendata.vancouver.ca/explore/dataset/parks-washrooms/export/) 
-into R and calculate the number of unique parks in Vancouver that have a washroom.
+Read the [City of Vancouver Parks washrooms data
+set](https://opendata.vancouver.ca/explore/dataset/parks-washrooms/export/)
+into R and calculate the number of unique parks in Vancouver that have a
+washroom.
 
-> Hint: use the `dplr` package `distinct` function 
-to get the distinct number of rows for each parkID
+> Hint: use the `dplr` package `distinct` function to get the distinct
+> number of rows for each parkID
 
 ```{r}
+library(tidyverse)
+vancouver_parks <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/parks-washrooms/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
+          delim = ";")
+#glimpse(vancouver_parks)
 
+num_distinct_rows <- distinct(vancouver_parks, ParkID) |> nrow()
+num_distinct_rows
+num_total_rows <- nrow(vancouver_parks)
+num_total_rows
 ```
 
 ### Part 2
 
-Use the [City of Vancouver Parks data set](https://opendata.vancouver.ca/explore/dataset/parks/export/) to calculate the percentage of parks in Vancouver that have a washroom.
+Use the [City of Vancouver Parks data
+set](https://opendata.vancouver.ca/explore/dataset/parks/export/) to
+calculate the percentage of parks in Vancouver that have a washroom.
 
 ```{r}
 
@@ -32,10 +46,10 @@ Use the [City of Vancouver Parks data set](https://opendata.vancouver.ca/explore
 
 ## Tidying patient data
 
-Consider the case where you have a patient data set 
-and you are trying to predict whether a patient has a iron deficiency 
-using the measurements from assays on their ferritin and hemoglobin levels.
-Is the data below tidy? If not, tidy it so that it is.
+Consider the case where you have a patient data set and you are trying
+to predict whether a patient has a iron deficiency using the
+measurements from assays on their ferritin and hemoglobin levels. Is the
+data below tidy? If not, tidy it so that it is.
 
 ```{r}
 library(dplyr)
