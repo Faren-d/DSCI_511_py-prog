@@ -4,6 +4,7 @@ output: github_document
 editor_options: 
   markdown: 
     wrap: 72
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -24,14 +25,12 @@ washroom.
 
 ```{r}
 library(tidyverse)
-vancouver_parks <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/parks-washrooms/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
+vancouver_park_washrooms <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/parks-washrooms/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
           delim = ";")
 #glimpse(vancouver_parks)
 
-num_distinct_rows <- distinct(vancouver_parks, ParkID) |> nrow()
-num_distinct_rows
-num_total_rows <- nrow(vancouver_parks)
-num_total_rows
+num_park_washrooms <- distinct(vancouver_park_washrooms, ParkID) |> nrow()
+num_park_washrooms
 ```
 
 ### Part 2
