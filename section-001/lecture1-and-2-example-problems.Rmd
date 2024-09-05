@@ -25,10 +25,15 @@ washroom.
 
 ```{r}
 library(tidyverse)
+```
+
+```{r}
 vancouver_park_washrooms <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/parks-washrooms/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
           delim = ";")
-#glimpse(vancouver_parks)
+glimpse(vancouver_parks)
+```
 
+```{r}
 num_park_washrooms <- distinct(vancouver_park_washrooms, ParkID) |> nrow()
 num_park_washrooms
 ```
