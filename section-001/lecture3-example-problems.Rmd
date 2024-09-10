@@ -24,16 +24,21 @@ Let's try to remove these!
 First we see how many of these we have!
 
 ```{r}
-art_data |> ...(...(..., ...)
+art_data |> 
+  filter(`Title of Work` == "Untitled")
+
+art_data |> 
+  filter(str_detect(`Title of Work`, "Untitled"))
 ```
 
 Now let's remove the redundant info:
 
 ```{r}
 art_data <- art_data |> 
-  ...(... = ...(..., ..., ...)) 
+  mutate(`Title of Work` = str_replace(`Title of Work`, "\\((Mural|Sculpture)\\)", ""))
+
 art_data |> 
-  filter(str_detect(`Title of Work`, "Untitled \\("))
+  filter(str_detect(`Title of Work`, "Untitled"))
 ```
 
 ## What are the most common kinds of public art in Vancouver
@@ -57,9 +62,10 @@ Since we are using the same column to order it, we will use `fct_infreq`
 from the `forcats` package (instead of `fct_reorder` where you can order based on a different column).
 
 > Note - it also converts the column to a factor!
+
 ```{r}
 art_data <- art_data |> 
-  mutate(... = ...(...))
+  mutate(Type = fct_infreq(Type))
 art_data
 ```
 
