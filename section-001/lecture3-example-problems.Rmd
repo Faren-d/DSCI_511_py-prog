@@ -1,0 +1,71 @@
+---
+title: "Lab 3 example problems"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Let's play with some data on the public art that exists in Vancouver!
+
+```{r}
+art_data <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/public-art/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
+                       delim = ";")
+art_data
+```
+
+## Let's do some data cleaning
+
+Some work is untitled, but then has redundantly coded the type of work in the title column.
+Let's try to remove these!
+
+First we see how many of these we have!
+
+```{r}
+art_data |> ...(...(..., ...)
+```
+
+Now let's remove the redundant info:
+
+```{r}
+art_data <- art_data |> 
+  ...(... = ...(..., ..., ...)) 
+art_data |> 
+  filter(str_detect(`Title of Work`, "Untitled \\("))
+```
+
+## What are the most common kinds of public art in Vancouver
+
+How many different types of art are there in Vancouver?
+
+```{r}
+distinct(art_data, Type)
+```
+
+Let's now visualize the counts to help answer our question - what are the most common kinds of public art in Vancouver
+
+```{r}
+ggplot(art_data, aes(y = Type)) +
+  geom_histogram(stat = "count")
+```
+
+Can we improve this figure? How? For example, what is the 4th most common kind of public art in Vancouver?
+Yes, by using factors! Let's make the `Type` column a factor and order by frequency!
+Since we are using the same column to order it, we will use `fct_infreq` 
+from the `forcats` package (instead of `fct_reorder` where you can order based on a different column).
+
+> Note - it also converts the column to a factor!
+```{r}
+art_data <- art_data |> 
+  mutate(... = ...(...))
+art_data
+```
+
+Let's remake our plot again:
+
+```{r}
+ggplot(art_data, aes(y = Type)) +
+  geom_histogram(stat = "count")
+```
