@@ -1,0 +1,697 @@
+---
+title: "DSCI 523 Lab 1"
+subtitle: "Introduction to programming with R for data manipulation"
+output: html_document
+---
+
+<!--
+# ASSIGNMENT CONFIG
+requirements: requirements.R
+generate:
+  show_stdout: true
+  show_hidden: true
+export_cell: false
+requirements: requirements.R
+files:
+  - img
+  - data
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Lab Mechanics
+rubric={mechanics:5}
+
+- All files necessary to run your work must be pushed to your GitHub.ubc.ca repository for this lab.
+- You need to have a minimum of 3 commit messages associated with your GitHub.ubc.ca repository for this lab.
+- You must also submit `.Rmd` file and the rendered pdf in this worksheet/lab to Gradescope. Entire notebook must be executed so the TA's can see the results of your work. 
+- **There is autograding in this lab, so please do not move or rename this file. Also, do not copy and paste cells, if you need to add new cells, create new cells via the "Insert a cell below" button instead.**
+- To ensure you do not break the autograder remove all code for installing packages (i.e., DO NOT have `install.packages(...)` or `devtools::install_github(...)` in your homework!
+- Follow the [MDS general lab instructions](https://ubc-mds.github.io/resources_pages/general_lab_instructions/).
+- <mark>This lab has hidden tests. In this lab, the visible tests are just there to ensure you create an object with the correct name. The remaining tests are hidden intentionally. This is so you get practice deciding when you have written the correct code and created the correct data object. This is a necessary skill for data scientists, and if we were to provide robust visible tests for all questions you would not develop this skill, or at least not to its full potential.</mark>
+
+## Code Quality
+rubric={quality:5}
+
+The code that you write for this assignment will be given one overall grade for code quality, see our code quality rubric as a guide to what we are looking for. Also, for this course (and other MDS courses that use R), we are trying to follow the tidyverse code style. There is a guide you can refer too: http://style.tidyverse.org/
+
+Each code question will also be assessed for code accuracy (i.e., does it do what it is supposed to do?).
+
+Run the cell below to load the libraries needed for this lab, as well as the test file so you can check your answers as you go!
+
+```{r}
+library(canlang)
+library(readxl)
+library(repurrrsive)
+library(testthat)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+> Note - there is an issue with loading packages with `tidyverse` and the autograding software we are using.
+Thus, for assignments, please load the packages individually as I have done above instead of loading them via the tidyverse.
+
+## Exercise 1: Reading data into R
+
+Reading data into R is so essential, that we need to get really good at it so it's not a bottleneck in our workflow! Here's some more practice for you! Read the data files listed in the table below and and bind the names listed in the table to them. We will use hidden tests to grade this, so you will get to practice deciding that your job is done, and done correctly. 
+
+**Note - if the column names are missing from any data sets you need to add them yourself programmatically via R** (see `col_names` arguement of the `read_*` functions).
+
+
+| File  | Object name to bind to the data frame | File location |
+|---|---|----|
+| `abbotsford_lang.xlsx`  | `abbotsford` | `data` directory of this repo |
+| `calgary_lang.csv`  | `calgary`  | `data` directory of this repo |
+| `edmonton_lang.xlsx`  | `edmonton`  | https://github.com/ttimbers/canlang/blob/master/inst/extdata/edmonton_lang.xlsx?raw=true |
+|  `kelowna_lang.csv` | `kelowna`  | `data` directory of this repo |
+| `vancouver_lang.csv`  | `vancouver`  | `data` directory of this repo |
+| `victoria_lang.csv`  | `victoria`  | https://github.com/ttimbers/canlang/raw/master/inst/extdata/victoria_lang.tsv |
+
+> #### The data
+> The data you will be working with in this first exercise is language data from the 2016 Canadian Census for cities in Western Canada. If you are unfamiliar with Western Canadian geography, here's a map to help you start to get more familiar:
+>
+> <img src="https://www.canadatours.com/images/maps/Canada_W.gif" width=500>
+>
+> *Image source: https://www.canadatours.com/canada_maps.cfm?#W*
+
+<!--
+# BEGIN QUESTION
+name: e11
+manual: false
+points: 5
+-->
+
+### Exercise 1.1
+
+#### Read in the Abbotsford language data:
+rubric={autograde:5}
+
+<!-- # BEGIN SOLUTION -->
+
+```{r, e11}
+abbotsford <- NULL
+# BEGIN SOLUTION NO PROMPT
+abbotsford <- read_excel("data/abbotsford_lang.xlsx", sheet = "data")
+# END SOLUTION
+head(abbotsford)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure abbotsford is a data frame
+expect_s3_class(abbotsford, "data.frame")
+```
+
+```{r, test-e11}
+# HIDDEN
+expect_equal(nrow(abbotsford), 214)
+expect_equal(ncol(abbotsford), 6)
+expect_equal(paste(tolower(sort(colnames(abbotsford))), collapse = ""), 'categorylang_knownlanguagemost_at_homemost_at_workmother_tongue')
+expect_equal(round(as.numeric(sum(abbotsford$mother_tongue, na.rm = TRUE))), 173570)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e12
+manual: false
+points: 5
+-->
+
+#### Read in the Calgary language data:
+rubric={autograde:5}
+
+<!-- # BEGIN SOLUTION -->
+
+```{r, e12}
+calgary <- NULL
+# BEGIN SOLUTION NO PROMPT
+calgary <- read_csv("data/calgary_lang.csv")
+# END SOLUTION
+head(calgary)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure calgary is a data frame
+expect_s3_class(calgary, "data.frame")
+```
+
+```{r, test-e12}
+# HIDDEN
+expect_equal(nrow(calgary), 214)
+expect_equal(ncol(calgary), 6)
+expect_equal(paste(tolower(sort(colnames(calgary))), collapse = ""), 'categorylang_knownlanguagemost_at_homemost_at_workmother_tongue')
+expect_equal(round(as.numeric(sum(calgary$mother_tongue, na.rm = TRUE))), 1341120)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e13
+manual: false
+points: 5
+-->
+
+#### Read in the Edmonton language data:
+rubric={autograde:5}
+
+> Hint: When using `download.file` on Windows for Excel files (e.g., `.xlsx`) you need to specify an additional argument: `mode = "wb"`. 
+
+<!-- # BEGIN SOLUTION -->
+
+```{r, e13}
+edmonton <- NULL
+# BEGIN SOLUTION NO PROMPT
+url <- "https://github.com/ttimbers/canlang/blob/master/inst/extdata/edmonton_lang.xlsx?raw=true"
+download.file(url, destfile = "data/edmonton.xlsx")
+edmonton <- read_excel("data/edmonton.xlsx", sheet = "data")
+# END SOLUTION
+head(edmonton)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure edmonton is a data frame
+expect_s3_class(edmonton, "data.frame")
+```
+
+```{r, test-e13}
+# HIDDEN
+expect_equal(nrow(edmonton), 214)
+expect_equal(ncol(edmonton), 6)
+expect_equal(paste(tolower(sort(colnames(edmonton))), collapse = ""), 'categorylang_knownlanguagemost_at_homemost_at_workmother_tongue')
+expect_equal(round(as.numeric(sum(edmonton$mother_tongue, na.rm = TRUE))), 1273005)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e14
+manual: false
+points: 5
+-->
+
+#### Read in the Kelowna language data:
+rubric={autograde:5}
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+kelowna <- NULL
+# BEGIN SOLUTION NO PROMPT
+kelowna <- read_csv2("data/kelowna_lang.csv", skip = 6, n_max = 214, 
+                     col_names = c("category", "language",
+                                   "mother_tongue", "most_at_home",
+                                   "most_at_work", "lang_known"))
+# END SOLUTION
+head(kelowna)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure kelowna is a data frame
+expect_s3_class(kelowna, "data.frame")
+```
+
+```{r}
+# HIDDEN
+expect_equal(nrow(kelowna), 214)
+expect_equal(ncol(kelowna), 6)
+expect_equal(paste(tolower(sort(colnames(kelowna))), collapse = ""), 'categorylang_knownlanguagemost_at_homemost_at_workmother_tongue')
+expect_equal(round(as.numeric(sum(kelowna$mother_tongue, na.rm = TRUE))), 190845)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e15
+manual: false
+points: 5
+-->
+
+#### Read in the Vancouver language data:
+rubric={autograde:5}
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+vancouver <- NULL
+# BEGIN SOLUTION NO PROMPT
+vancouver <- read_csv("data/vancouver_lang.csv")
+# END SOLUTION
+head(vancouver)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure vancouver is a data frame
+expect_s3_class(vancouver, "data.frame")
+```
+
+```{r}
+# HIDDEN
+expect_equal(nrow(vancouver), 214)
+expect_equal(ncol(vancouver), 6)
+expect_equal(paste(tolower(sort(colnames(vancouver))), collapse = ""), 'categorylang_knownlanguagemost_at_homemost_at_workmother_tongue')
+expect_equal(round(as.numeric(sum(vancouver$mother_tongue, na.rm = TRUE))), 2361925)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e16
+manual: false
+points: 5
+-->
+
+#### Read in the Victoria language data:
+rubric={autograde:5}
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+victoria <- NULL
+# BEGIN SOLUTION NO PROMPT
+victoria <- read_tsv("https://raw.githubusercontent.com/ttimbers/canlang/master/inst/extdata/victoria_lang.tsv")
+# END SOLUTION
+head(victoria)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure victoria is a data frame
+expect_s3_class(victoria, "data.frame")
+```
+
+```{r}
+# HIDDEN
+expect_equal(nrow(victoria), 214)
+expect_equal(ncol(victoria), 6)
+expect_equal(paste(tolower(sort(colnames(victoria))), collapse = ""), 'categorylang_knownlanguagemost_at_homemost_at_workmother_tongue')
+expect_equal(round(as.numeric(sum(victoria$mother_tongue, na.rm = TRUE))), 357030)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e2
+manual: false
+points: 10
+-->
+
+## Exercise 2: Data wrangling with {dplyr}
+rubric={autograde:10}
+
+You have loaded individual data sets for 6 Western Canadian cities above, but we have more data than that from the 2016 Canadian Census (the second most recent Canadian Census). The {[canlang](https://ttimbers.github.io/canlang/)} R data package has language and regional data for all census metropolitan areas in Canada!
+
+<img src="https://github.com/ttimbers/canlang/blob/master/man/figures/hex-canlang.png?raw=true" width=100>
+
+For this exercise, we want you to use the {dplyr} functions you have already met in this course and the {canlang} R package `region_lang` data set to uncover the name of the Canadian census metropolitan area which has the second most number of people who claim that they language they speak most often at home is Mandarin. Return the region name as a **character vector of length 1** (i.e., make sure it is not a data frame with one value in it). Bind the name `mandarin2` to the final object you return.
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+mandarin2 <- NULL
+# BEGIN SOLUTION NO PROMPT
+mandarin2 <- region_lang |> 
+    filter(language == "Mandarin") |> 
+    arrange(desc(most_at_home)) |> 
+    slice(2) |> 
+    select(region) |> 
+    pull()
+# END SOLUTION
+mandarin2
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure solution is a character vector 
+# (it's supposed to be the name of a city)
+expect_equal(class(mandarin2), 'character')
+```
+
+```{r}
+# HIDDEN
+expect_equal(mandarin2, 'Vancouver')
+expect_equal(length(mandarin2), 1)
+expect_equal(class(mandarin2), 'character')
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e3
+manual: true
+points: 20
+-->
+
+## Exercise 3: More data wrangling with {dplyr}
+rubric={accuracy:15}
+
+For this exercise, we want you to choose a Canadian census metropolitan area from the {canlang} R package `region_lang` data set, and use the {dplyr} functions that you have already met in this course to find the top 5 languages spoken most often at home from that area. Your final result should be a data frame with two columns:
+1. `language`
+2. `perc_pop` 
+
+The column `perc_pop` should be the percentage of the area's population who reported that they speak that language most often at home. You can find the population size for each Canadian census metropolitan area in the  {canlang} R package `region_data` data set. 
+
+**IMPORTANT - DO NOT USE ONE OF THE DATA FRAMES YOU CREATED IN EARLIER,**
+**AUTOGRADED QUESTIONS.** 
+**Doing so will cause the autograder to fail for those questions.**
+**Instead start with the `region_data` object** 
+**and create a new data frame for the region you are interested in.**
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+# BEGIN SOLUTION NO PROMPT
+ottawa_pop <- region_data |> 
+    filter(region == "Ottawa - Gatineau") |> 
+    select(population) |> 
+    pull()
+
+ottawa_top5_langs <- region_lang |> 
+    filter(region == "Ottawa - Gatineau") |> 
+    arrange(desc(most_at_home)) |> 
+    slice(1:5) |> 
+    select(language, most_at_home) |> 
+    mutate(perc_pop = round(most_at_home / ottawa_pop * 100)) |> 
+    select(-most_at_home)
+
+ottawa_top5_langs
+# END SOLUTION
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e4
+manual: false
+points: 1
+-->
+
+## Exercise 4: Tidying data with {tidyr}
+rubric={autograde:10}
+
+We're going to shift to a different data set to practice making data frames wider and longer, as the {canlang} data sets are already pretty tidy. Let's load a data set that is not tidy, because it is too wide for the statistical question being asked, and then use one of the {tidyr} functions to tidy it.
+
+This next data set that we will be looking at contains environmental data from 1914 to 2018. The data was collected by the DFO (Canada's Department of Fisheries and Oceans) at the Pacific Biological Station (Departure Bay). Daily sea surface temperatures were recorded. Original data source: http://www.pac.dfo-mpo.gc.ca/science/oceans/data-donnees/lightstations-phares/index-eng.html
+
+A statistical question we might be interested in answering with this data set is, has sea surface temperature been changing over time, and is there an association between time of year (i.e., month) and this change over time? Read the `departure_bay_temperature.csv` data set in from the `data` directory and decide what tidying you will have to do, and then get to work and tidy it! 
+
+Bind the name `tidy_temps` to the tidy data frame you create. Name the second column name to be `month` & third column name to be `temp`.
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+tidy_temps <- NULL
+# BEGIN SOLUTION NO PROMPT
+tidy_temps <- read_csv("data/departure_bay_temperature.csv", skip = 2) |> 
+    pivot_longer(cols = Jan:Dec, names_to = "month", values_to = "temp")
+# END SOLUTION
+tidy_temps
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure tidy_temps is a data frame
+expect_s3_class(tidy_temps, "data.frame")
+# make sure tidy_temps has 3 columns
+expect_equal(ncol(tidy_temps), 3)
+```
+
+```{r}
+# HIDDEN
+expect_equal(nrow(tidy_temps), 1260)
+expect_equal(ncol(tidy_temps), 3)
+expect_equal(paste(tolower(sort(colnames(tidy_temps))), collapse = ""), 'monthtempyear')
+expect_equal(round(as.numeric(sum(tidy_temps$temp, na.rm = TRUE))), 10508)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+As a reward for your hard work, let's take a look and see whether sea surface temperature been changing over time at Departure Bay, BC. Given that time of year is a factor that influences temperature, we'll plot this for each month separately:
+
+```{r}
+temps_plot <- tidy_temps |> 
+    ggplot(aes(x = Year, y = temp)) + 
+    geom_point() + 
+    facet_wrap(~ factor(month, levels = c("Jan","Feb","Mar","Apr","May","Jun",
+                                          "Jul","Aug","Sep","Oct","Nov","Dec"))) +
+    xlab("Year") + 
+    ylab("Temperature") +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          legend.background = element_rect(fill = "white", color = NA),
+          plot.title.position = "plot",
+          plot.caption = element_text(hjust = 0, face= "italic"),
+          plot.caption.position = "plot",
+          text = element_text(size = 18),
+          axis.text.x = element_text(angle = 45, hjust=1))
+temps_plot
+```
+
+<!--
+# BEGIN QUESTION
+name: e5
+manual: false
+points: 10
+-->
+
+## Exercise 5: Tidying more data with {tidyr}
+rubric={autograde:10}
+
+Use one of the {tidyr} functions to tidy the data that you will load in from the `language_diversity.csv` file located in the `data` directory. This data was collected to answer research questions, such as what factors are associated with language diversity (as measured by the number of languages spoken in a country).  Read the `language_diversity.csv` data set into R and decide what tidying you will have to do, and then get to work and tidy it! Bind the name `tidy_lang` to the tidy data frame you create.
+
+Data source: https://www.jvcasillas.com/untidydata/
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+tidy_lang <- NULL
+# BEGIN SOLUTION NO PROMPT
+tidy_lang <- read_tsv("data/language_diversity.csv") |> 
+    pivot_wider(names_from = "Measurement", values_from = "Value")
+# END SOLUTION
+head(tidy_lang)
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure tidy_lang is a data frame
+expect_s3_class(tidy_lang, "data.frame")
+```
+
+```{r}
+# HIDDEN TESTS
+expect_equal(nrow(tidy_lang), 74)
+expect_equal(ncol(tidy_lang), 8)
+expect_equal(paste(tolower(sort(colnames(tidy_lang))), collapse = ""), 'areacontinentcountrylangsmgspopulationstationsstd')
+expect_equal(round(as.numeric(sum(tidy_lang$Langs, na.rm = TRUE))), 6640)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+Now that we have this data in a tidy format, let's explore it and plot the number of languages spoken in each country in the data set against the country's population:
+
+```{r}
+lang_plot <- ggplot(tidy_lang, aes(x = Population, y = Langs, colour = Continent, shape = Continent)) +
+    geom_point(size = 3.5) +
+    scale_color_manual(values = c("#7a5195", "#ef5675", "#ffa600", "#003f5c")) +
+    scale_y_log10(name = "Number of languages spoken", 
+                       labels = scales::comma) +
+    scale_x_log10(name = "Population", 
+                       labels = scales::comma) +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          legend.background = element_rect(fill = "white", color = NA),
+          plot.title.position = "plot",
+          plot.caption = element_text(hjust = 0, face= "italic"),
+          plot.caption.position = "plot",
+          text = element_text(size = 18))
+lang_plot
+```
+
+## Exercise 6: Subsetting with base R
+
+The {tidyverse} functions were written for manipulating data frames and vectors, but you now know that there are other types of objects in R. To work with these kinds of objects we need to know how to do subsetting using base R. Lets get some more practice doing this first with matrices and lists! 
+
+<!--
+# BEGIN QUESTION
+name: e61
+manual: false
+points: 5
+-->
+
+### Subsetting matrices
+rubric={autograde:5}
+
+Consider the matrix created below, subset a smaller matrix that is the 10 - 15 colums and 1 - 5 rows. Bind the name `small_matrix` to it:
+
+```{r}
+set.seed(2020) # this makes the random number process below reproducible
+random_matrix <- matrix(rexp(200, rate=.1), ncol=20)
+random_matrix
+```
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+small_matrix <- NULL
+# BEGIN SOLUTION NO PROMPT
+small_matrix <- random_matrix[1:5, 10:15]
+# END SOLUTION
+small_matrix
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure small_matrix is a matrix
+expect_true('matrix' %in% class(small_matrix))
+```
+
+```{r}
+# HIDDEN
+expect_equal(nrow(small_matrix), 5)
+expect_equal(ncol(small_matrix), 6)
+expect_equal(round(as.numeric(sum(small_matrix[1], na.rm = TRUE))), 12)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e62
+manual: false
+points: 5
+-->
+
+### Subsetting lists
+rubric={autograde:5}
+
+Now we will work with a list from the {[repurrrsive](https://github.com/jennybc/repurrrsive)} R data package, specifically a data set about Game of Thrones characters named `got_chars`.
+
+```{r}
+# uncomment the line below and run this cell to view the got_chars data set
+# glimpse(got_chars)
+```
+
+Now, from this list, extract the name of the 9th Game of Thrones character in this list, as a character vector (not a list). 
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+got_char_9 <- NULL
+# BEGIN SOLUTION NO PROMPT
+got_char_9 <- got_chars[[9]]$name
+# END SOLUTION
+got_char_9
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# make sure solution is a character vector 
+# (it's supposed to be the name of a Game of Thrones character)
+expect_equal(class(got_char_9), 'character')
+```
+
+```{r}
+# HIDDEN
+expect_equal(got_char_9, 'Daenerys Targaryen')
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+## Exercise 7: CHALLENGING
+
+rubric={accuracy:5}
+
+**Warning: This exercise is challenging and could be time-consuming. Please only attempt if you find yourself finishing the assignment early and you want a bit more of a challenge.**
+
+### Create another tidy data example
+
+Write a research question you would be interested in answering, 
+and use R to create a small, fake data set 
+that you could use to answer that question. 
+Present the fake data in 3 different formats, 
+two of which that are **not** tidy, as well as one which is tidy. 
+Label which versions of the data set are tidy and which are not. 
+Provide a 1-2 sentence explanation why each version of the data set is tidy 
+or not.
+
+*Your solution here.*
+
+Congratulations! You are done the lab!!! Pat yourself on the back, and submit your lab to **GitHub** and Gradescope! Make sure you have 3 Git commits!
+
+<img src="img/r_first_then.png" width=300>
+
+Illustration by Allison Horst

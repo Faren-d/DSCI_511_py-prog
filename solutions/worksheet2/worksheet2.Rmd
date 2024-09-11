@@ -1,0 +1,338 @@
+---
+title: "DSCI 523 Worksheet 2"
+output: html_document
+---
+
+<!--
+# ASSIGNMENT CONFIG
+requirements: requirements.R
+generate:
+  show_stdout: true
+  show_hidden: true
+export_cell: false
+requirements: requirements.R
+files:
+  - img
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome to worksheet 1! This worksheet was designed to allow you to practice what was covered in the assigned readings & lectures/recordings. The labs problems will be more challenging than those in the worksheet, and the worksheet questions will help prepare you for them. Time will be provided to work on the worksheets in small groups during lecture, however it is not expected that you will complete the worksheet in this time. You are expected to spend some independent time working on the worksheet after lecture.
+
+<mark>To ensure you do not break the autograder remove all code for installing packages (i.e., DO NOT have `install.packages(...)` or `devtools::install_github(...)` in your homework!</mark>
+
+**Worksheets are due on Saturdays at 6 pm, and must be submitted as `.Rmd` file and the rendered `pdf` in this worksheet/lab to Gradescope.**
+
+### Worksheet mechanics
+
+-   **There is autograding in this lab, so please do not move or rename this file. Also, do not copy and paste cells, if you need to add new cells, create new cells via the "Insert a cell below" button instead.**
+
+Run the cell below to load the libraries needed for this worksheet, and to check your answers as you go!
+
+```{r}
+library(digest)
+library(testthat)
+```
+
+# 1.0 The operators and key datatypes for Data Science in R
+
+<!--
+# BEGIN QUESTION
+name: e1
+manual: false
+points: 1
+-->
+
+### Exercise 1
+
+rubric={autograde:1}
+
+In R, all elements of vectors and lists must have the same type. True or false?
+
+Create an object with a valid logical value corresponding to whether you believe the answer to the question above is `TRUE` or `FALSE`. Bind the name `answer1` to this object.
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+answer1 <- NULL
+# BEGIN SOLUTION NO PROMPT
+answer1 <- FALSE
+# END SOLUTION
+
+answer1
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.logical(answer1))
+expect_equal(digest(answer1 + 13), '709a7faa72cb6f3be79d683e234ccb25')
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e2
+manual: false
+points: 1
+-->
+
+### Exercise 2
+
+rubric={autograde:1}
+
+Create a vector containing the names of the types of the four most common types of vectors. Bind the name `answer2` to this object.
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+answer2 <- NULL
+# BEGIN SOLUTION NO PROMPT
+answer2 <- c("character", "double", "integer", "logical")
+# END SOLUTION
+
+answer2
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.character(answer2))
+expect_equal(length(answer2), 4)
+expect_equal(digest(paste(tolower(sort(answer2)), collapse="")), 'c74b4d11b8d68d188749e3a83e1266c8')
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e4
+manual: false
+points: 1
+-->
+
+### Exercise 3
+
+rubric={autograde:1}
+
+Create vector containing the following values: 2.2, 15.0, 3.5, 4.0, 30.0 (in the order we list them) and bind the name `values` to it. ***Hint**: The columns function, `c()`, is helpful for constructing vectors.*
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+values <- NULL
+# BEGIN SOLUTION NO PROMPT
+values <- c(2.2, 15, 3.5, 4, 30)
+# END SOLUTION
+
+values
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.numeric(values))
+expect_equal(length(values), 5)
+expect_false(is.list(values))
+expect_equal(round(sum(values)), 55)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e5
+manual: false
+points: 1
+-->
+
+### Exercise 4: writing files from R
+
+rubric={autograde:1}
+
+Use the `[` syntax to get the first element from the vector `values` and bind the name `values_first` to it.
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+values_first <- NULL
+# BEGIN SOLUTION NO PROMPT
+values_first <- values[1]
+# END SOLUTION
+
+values_first
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.numeric(values_first))
+expect_equal(length(values_first), 1)
+expect_false(is.list(values_first))
+expect_equal(round(sum(values_first)), 2)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e8
+manual: false
+points: 1
+-->
+
+### Exercise 5
+
+rubric={autograde:1}
+
+Create a list (not a vector) with the **original** values contained in the `values` vector you just explored ( 2.2, 15.0, 3.5, 4.0, and 30.0). Bind the name `value_list` to the list you create.
+
+*Hint: use the `list` function to create a list in R.*
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+value_list <- NULL
+# BEGIN SOLUTION NO PROMPT
+value_list <- list(2.2, 15, 3.5, 4, 30)
+# END SOLUTION
+
+value_list
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.numeric(value_list[[1]]))
+expect_true(is.numeric(value_list[[2]]))
+expect_true(is.numeric(value_list[[3]]))
+expect_true(is.numeric(value_list[[4]]))
+expect_true(is.numeric(value_list[[5]]))
+expect_equal(length(value_list), 5)
+expect_true(is.list(value_list))
+expect_equal(round(Reduce(`+`, value_list)), 55)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+<!--
+# BEGIN QUESTION
+name: e9
+manual: false
+points: 1
+-->
+
+### Exercise 6
+
+rubric={autograde:1}
+
+Get the first element from the list and bind the name `value_list_first` to it. Ensure that what you return is a number (**not a list itself**). Remember: When indexing, using `[` gives you the same type of object as the object being indexed (e.g., returns a list when applied to a list), whereas `[[` removes one level of structure (e.g., if the object is a list of numbers, you get the number back itself).
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+value_list_first <- NULL
+# BEGIN SOLUTION NO PROMPT
+value_list_first <- value_list[[1]]
+# END SOLUTION
+
+value_list_first
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.numeric(value_list_first))
+expect_equal(length(value_list_first), 1)
+expect_false(is.list(value_list_first))
+expect_equal(round(sum(value_list_first)), 2)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+
+<!--
+# BEGIN QUESTION
+name: e11
+manual: false
+points: 1
+-->
+
+### Exercise 7
+rubric={autograde:1}
+
+Consider the built-in/base R `CO2` data frame shown below, which contains data from an experiment on carbon dioxide uptake in the grass plant *Echinochloa crus-galli*. Use the `[` syntax to extract rows 1 - 5, and only the columns `conc` and `uptake`. Bind the name `first_five_measurements` to this smaller data frame.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Echinochloa_crus-galli01.jpg/440px-Echinochloa_crus-galli01.jpg" width=200>
+
+*Source: https://en.wikipedia.org/wiki/Echinochloa_crus-galli*
+
+```{r}
+# view the first 10 rows
+CO2[1:10, ]
+```
+
+<!-- # BEGIN SOLUTION -->
+
+```{r}
+first_five_measurements <- NULL
+# BEGIN SOLUTION NO PROMPT
+first_five_measurements <- CO2[1:5, 4:5]
+# END SOLUTION
+
+first_five_measurements
+```
+
+<!-- # END SOLUTION -->
+
+<!-- # BEGIN TESTS-->
+
+```{r}
+# TESTS
+expect_true(is.data.frame(first_five_measurements))
+expect_equal(nrow(first_five_measurements), 5)
+expect_equal(ncol(first_five_measurements), 2)
+expect_true(c("conc") %in% colnames(first_five_measurements))
+expect_true(c("uptake") %in% colnames(first_five_measurements))
+expect_equal(length(colnames(first_five_measurements)), 2)
+expect_equal(round(sum(first_five_measurements$conc)), 1370)
+```
+
+<!-- # END TESTS -->
+
+<!-- # END QUESTION -->
+
+Congratulations! You are done the worksheet!!! Pat yourself on the back, and submit your worksheet to Gradescope!
