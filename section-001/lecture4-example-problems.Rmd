@@ -1,0 +1,91 @@
+---
+title: "Lecture 4 example problems"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Let's continue to play with some data 
+# on the public art that exists in Vancouver!
+
+Loading the data and reminding ourselves of what it looks like:
+
+```{r}
+art_data <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/public-art/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
+                       delim = ";")
+art_data
+```
+
+## Let's find the work of some artists we are interested in
+
+Say we are interested in visiting public art of three well known 
+indigenous artists in Vancouver:
+
+- [Bill Reid](https://en.wikipedia.org/wiki/Bill_Reid)
+- [Beau Dick](https://en.wikipedia.org/wiki/Beau_Dick)
+- [Susan Point](https://en.wikipedia.org/wiki/Susan_Point)
+
+Can we find the records that correspond the these from the `Artists` column?
+
+```{r}
+
+```
+
+Wait? Nothing? 
+I had read that some of their art was on public display in Vancouver...
+Let's revisit the `Artists` column to see what is going on!
+
+```{r}
+
+```
+Ohhhhhh - those don't look like artist names! 
+Let's head back to the data dictionary:
+<https://opendata.vancouver.ca/explore/dataset/public-art/information/>
+
+## Getting the data we need!
+
+The data we need to find the link between the artist names 
+and the the artist identifier (ArtistID) is in the Public art - Artists data set:
+<https://opendata.vancouver.ca/explore/dataset/public-art-artists/information/>
+
+Let's read this data in 
+and then use it to find the works of art by our artists of interest.
+
+```{r}
+
+```
+
+The only columns we need from the `artist_data` dataframe are:
+
+- `ArtistID`
+- `FirstName`
+- `LastName`
+
+Lets drop the rest so that we aren't working with more data than we need:
+
+```{r}
+
+```
+
+Now we can join `art_data` and `artist_data` 
+to add the artist names to the `art_data` dataframe:
+
+```{r}
+
+```
+
+We're almost ready to look up our artists! 
+Last thing to do is to create a name column from the first and last names:
+
+```{r}
+
+```
+
+Whoohoo! Let's find the art!
+
+```{r}
+
+```

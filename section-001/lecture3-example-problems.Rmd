@@ -1,5 +1,5 @@
 ---
-title: "Lab 3 example problems"
+title: "Lecture 3 example problems"
 output: github_document
 ---
 
