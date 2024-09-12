@@ -14,9 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Loading the data and reminding ourselves of what it looks like:
 
 ```{r}
-art_data <- read_delim("https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/public-art/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B",
-                       delim = ";")
-art_data
+
 ```
 
 ## Let's find the work of some artists we are interested in
@@ -41,6 +39,7 @@ Let's revisit the `Artists` column to see what is going on!
 ```{r}
 
 ```
+
 Ohhhhhh - those don't look like artist names! 
 Let's head back to the data dictionary:
 <https://opendata.vancouver.ca/explore/dataset/public-art/information/>
@@ -70,8 +69,30 @@ Lets drop the rest so that we aren't working with more data than we need:
 
 ```
 
-Now we can join `art_data` and `artist_data` 
-to add the artist names to the `art_data` dataframe:
+Now we would like to join `art_data` and `artist_data` 
+to add the artist names to the `art_data` dataframe, 
+but remember that the `Artists` column in `art_data` 
+sometimes had multiple records in a row! 
+We need to separate those columns first and then tidy it!
+
+Let's first find the maximum number of artists in an entry (so we know how to separate it):
+
+```{r}
+
+```
+
+OK, let's separate into 17 columns! And then tidy!
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+Now we can join `art_data_by_artist` and `artist_data` 
+so we can find the art created by our artists of interest!
 
 ```{r}
 
@@ -84,7 +105,7 @@ Last thing to do is to create a name column from the first and last names:
 
 ```
 
-Whoohoo! Let's find the art!
+Whoohoo! Let's find the art and write the data to a spreadsheet!
 
 ```{r}
 
