@@ -136,18 +136,25 @@ Now we can join `art_data_by_artist` and `artist_data` so we can find
 the art created by our artists of interest!
 
 ```{r}
-
+art_data_joined <- left_join(art_data_by_artist, artist_data,
+          by = join_by(Artists == ArtistID))
 ```
 
 We're almost ready to look up our artists! Last thing to do is to create
 a name column from the first and last names:
 
 ```{r}
-
+art_data_cleaned <- art_data_joined |> 
+  unite("name",
+        FirstName:LastName,
+        sep = " ",
+        na.rm = TRUE) 
 ```
 
 Whoohoo! Let's find the art and write the data to a spreadsheet!
 
 ```{r}
-
+art_data_cleaned |> 
+  filter(name %in% indigenous_artists) |> 
+  write_csv("indigenous-artwork.csv")
 ```
