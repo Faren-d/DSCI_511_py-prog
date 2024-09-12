@@ -1,6 +1,9 @@
 ---
 title: "Lecture 4 example problems"
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -8,100 +11,136 @@ library(tidyverse)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Let's continue to play with some data 
+## Let's continue to play with some data
+
 # on the public art that exists in Vancouver!
 
 Loading the data and reminding ourselves of what it looks like:
 
 ```{r}
-
+url <- "https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/public-art/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B"
+art_data <- read_delim(url,
+                       delim = ";",
+                       col_types = cols(Artists = col_character()))
+art_data
 ```
 
 ## Let's find the work of some artists we are interested in
 
-Say we are interested in visiting public art of five well known 
+Say we are interested in visiting public art of five well known
 indigenous artists in Vancouver:
 
-- [Bill Reid](https://en.wikipedia.org/wiki/Bill_Reid)
-- [Beau Dick](https://en.wikipedia.org/wiki/Beau_Dick)
-- [Charles Edenshaw](https://en.wikipedia.org/wiki/Charles_Edenshaw)
-- [Susan Point](https://en.wikipedia.org/wiki/Susan_Point)
-- [Sonny Assu](https://en.wikipedia.org/wiki/Sonny_Assu)
+-   [Bill Reid](https://en.wikipedia.org/wiki/Bill_Reid)
+-   [Beau Dick](https://en.wikipedia.org/wiki/Beau_Dick)
+-   [Charles Edenshaw](https://en.wikipedia.org/wiki/Charles_Edenshaw)
+-   [Susan Point](https://en.wikipedia.org/wiki/Susan_Point)
+-   [Sonny Assu](https://en.wikipedia.org/wiki/Sonny_Assu)
 
-Can we find the records that correspond the these from the `Artists` column?
-
-```{r}
-
-```
-
-Wait? Nothing? 
-I had read that some of their art was on public display in Vancouver...
-Let's revisit the `Artists` column to see what is going on!
+Can we find the records that correspond the these from the `Artists`
+column?
 
 ```{r}
+indigenous_artists <- c("Bill Reid",
+                        "Beau Dick",
+                        "Charles Edenshaw",
+                        "Susan Point",
+                        "Sonny Assu")
 
+art_data |> 
+  filter(Artists %in% indigenous_artists)
 ```
 
-Ohhhhhh - those don't look like artist names! 
-Let's head back to the data dictionary:
+Wait? Nothing? I had read that some of their art was on public display
+in Vancouver... Let's revisit the `Artists` column to see what is going
+on!
+
+```{r}
+art_data |> select(Artists)
+```
+
+Ohhhhhh - those don't look like artist names! Let's head back to the
+data dictionary:
 <https://opendata.vancouver.ca/explore/dataset/public-art/information/>
 
 ## Getting the data we need!
 
-The data we need to find the link between the artist names 
-and the the artist identifier (ArtistID) is in the Public art - Artists data set:
+The data we need to find the link between the artist names and the the
+artist identifier (ArtistID) is in the Public art - Artists data set:
 <https://opendata.vancouver.ca/explore/dataset/public-art-artists/information/>
 
-Let's read this data in 
-and then use it to find the works of art by our artists of interest.
+Let's read this data in and then use it to find the works of art by our
+artists of interest.
 
 ```{r}
-
+url_artist <- "https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/public-art-artists/exports/csv?lang=en&timezone=America%2FLos_Angeles&use_labels=true&delimiter=%3B"
+artist_data <- read_delim(url_artist,
+                          delim = ";")
+artist_data
 ```
 
 The only columns we need from the `artist_data` dataframe are:
 
-- `ArtistID`
-- `FirstName`
-- `LastName`
+-   `ArtistID`
+-   `FirstName`
+-   `LastName`
 
-Lets drop the rest so that we aren't working with more data than we need:
+Lets drop the rest so that we aren't working with more data than we
+need:
 
 ```{r}
-
+artist_data <- artist_data |> 
+  select(ArtistID, FirstName, LastName)
 ```
 
-Now we would like to join `art_data` and `artist_data` 
-to add the artist names to the `art_data` dataframe, 
-but remember that the `Artists` column in `art_data` 
-sometimes had multiple records in a row! 
-We need to separate those columns first and then tidy it!
+Now we would like to join `art_data` and `artist_data` to add the artist
+names to the `art_data` dataframe, but remember that the `Artists`
+column in `art_data` sometimes had multiple records in a row! We need to
+separate those columns first and then tidy it!
 
-Let's first find the maximum number of artists in an entry (so we know how to separate it):
+Let's first find the maximum number of artists in an entry (so we know
+how to separate it):
 
 ```{r}
+artists <- art_data |> 
+  pull(Artists) |> 
+  str_split(",")
 
+max_length <- 0
+for (items in artists) {
+  max_length <- max(length(items), max_length)
+}
+max_length
 ```
 
 OK, let's separate into 17 columns! And then tidy!
 
 ```{r}
-
+art_data_separated <- art_data |> 
+  separate(Artists,
+           into = paste0("Artist", 1:max_length),
+           sep = ",",
+           fill = "right",
+           extra = "drop")
+art_data_separated
 ```
+
+```{r}
+art_data_by_artist <- art_data_separated |> 
+  pivot_longer(cols = starts_with("Artist"),
+               names_to = NULL,
+               values_to = "Artists") |> 
+  mutate(Artists = as.numeric(Artists))
+```
+
+Now we can join `art_data_by_artist` and `artist_data` so we can find
+the art created by our artists of interest!
 
 ```{r}
 
 ```
 
-Now we can join `art_data_by_artist` and `artist_data` 
-so we can find the art created by our artists of interest!
-
-```{r}
-
-```
-
-We're almost ready to look up our artists! 
-Last thing to do is to create a name column from the first and last names:
+We're almost ready to look up our artists! Last thing to do is to create
+a name column from the first and last names:
 
 ```{r}
 
