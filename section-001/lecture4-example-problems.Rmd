@@ -19,12 +19,14 @@ Loading the data and reminding ourselves of what it looks like:
 
 ## Let's find the work of some artists we are interested in
 
-Say we are interested in visiting public art of three well known 
+Say we are interested in visiting public art of five well known 
 indigenous artists in Vancouver:
 
 - [Bill Reid](https://en.wikipedia.org/wiki/Bill_Reid)
 - [Beau Dick](https://en.wikipedia.org/wiki/Beau_Dick)
+- [Charles Edenshaw](https://en.wikipedia.org/wiki/Charles_Edenshaw)
 - [Susan Point](https://en.wikipedia.org/wiki/Susan_Point)
+- [Sonny Assu](https://en.wikipedia.org/wiki/Sonny_Assu)
 
 Can we find the records that correspond the these from the `Artists` column?
 
